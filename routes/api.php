@@ -115,16 +115,15 @@ Route::group(['prefix'=> 'Trip'],routes:function($router){
 });
 
 
-Route::get('/db-test', function () {
+Route::get('/stories-test', function () {
     try {
-        return response()->json([
-            'database' => DB::connection()->getDatabaseName(),
-            'stories_count' => DB::table('stories')->count(),
-            'users_count' => DB::table('users')->count(),
-        ]);
+        return response()->json(
+            \App\Models\Story::all()
+        );
     } catch (\Throwable $e) {
         return response()->json([
-            'error' => 'Database connection failed',
+            'error' => get_class($e),
+            'message' => $e->getMessage(),
         ], 500);
     }
 });
