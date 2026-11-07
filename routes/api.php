@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\DB;
 use GuzzleHttp\Middleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -114,3 +114,17 @@ Route::group(['prefix'=> 'Trip'],routes:function($router){
 
 });
 
+
+Route::get('/db-test', function () {
+    try {
+        return response()->json([
+            'database' => DB::connection()->getDatabaseName(),
+            'stories_count' => DB::table('stories')->count(),
+            'users_count' => DB::table('users')->count(),
+        ]);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'error' => 'Database connection failed',
+        ], 500);
+    }
+});ر
