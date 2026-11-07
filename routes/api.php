@@ -127,4 +127,4 @@ Route::get('/db-test', function () {
             'error' => 'Database connection failed',
         ], 500);
     }
-});ر
+});
