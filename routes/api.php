@@ -114,12 +114,11 @@ Route::group(['prefix'=> 'Trip'],routes:function($router){
 
 });
 
-
-Route::get('/stories-test', function () {
+Route::get('/stories-relation-test', function () {
     try {
-        return response()->json(
-            \App\Models\Story::all()
-        );
+        $stories = \App\Models\Story::with('user')->get();
+
+        return response()->json($stories);
     } catch (\Throwable $e) {
         return response()->json([
             'error' => get_class($e),
